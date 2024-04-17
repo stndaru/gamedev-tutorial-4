@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/kenney_platformerpack/PNG/Ground/Stone/stone.png" type="Texture" id=1]
+[ext_resource path="res://assets/kenney_platformerpack/PNG/Ground/Grass/grass.png" type="Texture" id=2]
+[ext_resource path="res://assets/kenney_platformerpack/PNG/Players/128x256/Pink/alienPink_jump.png" type="Texture" id=3]
+[ext_resource path="res://assets/nasalization-rg.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://scripts/PlayStage1.gd" type="Script" id=5]
+[ext_resource path="res://scripts/PlayStage2.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 4 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/separation = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 345.0
+size_flags_vertical = 4
+custom_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+margin_left = 448.0
+margin_right = 576.0
+margin_bottom = 256.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 3 )
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+margin_top = 268.0
+margin_right = 1024.0
+margin_bottom = 345.0
+custom_fonts/font = SubResource( 1 )
+text = "The Pacilian Astronaut"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 409.0
+margin_right = 1024.0
+margin_bottom = 573.0
+
+[node name="Level 1" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 510.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="PlayStage1" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Level 1"]
+margin_left = 211.0
+margin_right = 299.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Stage 1"
+script = ExtResource( 5 )
+scene_to_load = "Level1"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Level 1"]
+margin_left = 191.0
+margin_top = 36.0
+margin_right = 319.0
+margin_bottom = 164.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+
+[node name="Level 2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="PlayStage2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Level 2"]
+margin_left = 211.0
+margin_right = 299.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Stage 2"
+script = ExtResource( 6 )
+scene_to_load = "Level2"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Level 2"]
+margin_left = 191.0
+margin_top = 36.0
+margin_right = 319.0
+margin_bottom = 164.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Level 1/PlayStage1" to="MarginContainer/VBoxContainer/HBoxContainer/Level 1/PlayStage1" method="_on_PlayStage1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Level 2/PlayStage2" to="MarginContainer/VBoxContainer/HBoxContainer/Level 2/PlayStage2" method="_on_PlayStage2_pressed"]

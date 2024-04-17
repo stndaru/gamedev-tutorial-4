@@ -1,4 +1,4 @@
-# Tutorial 3 Game Development CSUI Even Semester 2023/2024
+# Tutorial 4 Game Development CSUI Even Semester 2023/2024
 Created by Stefanus Ndaru Wedhatama - 2006526812
 
 ## Excercise
@@ -51,3 +51,20 @@ Adanya Lighting yang membuat Scene menjadi lebih hidup, dengan memanfaatkan `Can
 
 
 ![Alt text](image.png)
+
+---
+
+# Tutorial 6 Game Development CSUI Even Semester 2023/2024
+Created by Stefanus Ndaru Wedhatama - 2006526812
+
+## Excercise
+### Implementation of New Game
+Implementasi New Game dilakukan dengan menaruh tombol New Game menggunakan `ButtonLink` di scene `MainMenu.tscn`. Tombol ini dinest dalam suatu `MarginContainer` dan banyak `VBox` serta `HBox` container lainnya, lalu diberikan signal ketika ditekan akan memanggil `get_tree().change_scene(str("res://scenes/level/" + scene_to_load + ".tscn"))`. Selain itu, ketika menekan tombol, maka akan menulis ke _singleton_ nyawa dan menaruh _value_ sebanyak 3 lives melalui `global.set_lives(3)`.
+
+
+### Implementation of Stage Select
+Stage Select mengikuti implementasi New Game dalam _layout_ dengan menggunakan `MarginContainer` dan banyak `VBox` serta `HBox` container lainnya. Di Stage Select, dalam scene `MenuScreen.tscn`, terdapat dua tombol yang akan memainkan level yang sesuai. Setiap tombol akan diberikan perintah untuk memberi 3 nyawa, sama seperti New Game, dan akan memuat scene melalui `get_tree().change_scene(str("res://scenes/level/" + scene_to_load + ".tscn"))` dengan `scene_to_load` diatur secara manual melalui Inspector di masing-masing stage.
+
+
+### Implementation of Return to Menu
+Pada tutorial 6 ini, untuk layar akhir, baik kalah atau menang, diberikan tombol untuk kembali ke menu. Hal ini dilakukan di kedua scene `WinScreen.tscn` dan juga `LoseScreen.tscn`. Implementasi sangat mudah, dengan memberi Button lalu dengan Anchor diberikan ke Center dan melakukan sedikit adjustment secara vertikal, lalu diberikan signal tekan yang akan memanggil untuk memuat scene menu utama melalui `get_tree().change_scene(str("res://scenes/screen/MainMenu.tscn"))`.
