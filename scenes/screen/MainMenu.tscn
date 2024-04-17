@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/NewGame.gd" type="Script" id=1]
+[ext_resource path="res://scripts/StageSelect.gd" type="Script" id=2]
+[ext_resource path="res://assets/kenney_platformerpack/PNG/Players/128x256/Pink/alienPink_jump.png" type="Texture" id=3]
+[ext_resource path="res://assets/nasalization-rg.otf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+font_data = ExtResource( 4 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/separation = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 345.0
+size_flags_vertical = 4
+custom_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+margin_left = 448.0
+margin_right = 576.0
+margin_bottom = 256.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 3 )
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+margin_top = 268.0
+margin_right = 1024.0
+margin_bottom = 345.0
+custom_fonts/font = SubResource( 1 )
+text = "The Pacilian Astronaut"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 409.0
+margin_right = 1024.0
+margin_bottom = 513.0
+custom_constants/separation = 24
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 393.0
+margin_right = 630.0
+margin_bottom = 104.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="NewGame" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_left = 14.0
+margin_right = 223.0
+margin_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_colors/font_color = Color( 0.458824, 0.603922, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "New Game"
+script = ExtResource( 1 )
+scene_to_load = "Level1"
+
+[node name="StageSelect" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 237.0
+margin_bottom = 104.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_colors/font_color = Color( 0.458824, 0.603922, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Stage Select"
+script = ExtResource( 2 )
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGame" to="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGame" method="_on_NewGame_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/StageSelect" to="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/StageSelect" method="_on_StageSelect_pressed"]

@@ -7,7 +7,7 @@ func _ready():
 
 func spawn():
 	var spawned = obstacle.instance()
-	get_parent().add_child(spawned)
+	get_parent().call_deferred("add_child", spawned)
 
 	var spawn_pos = global_position
 	spawn_pos.x = spawn_pos.x + rand_range(-1000, 1000)
