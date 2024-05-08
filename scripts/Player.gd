@@ -7,7 +7,7 @@ export var GRAVITY: int = 1200
 export var jump_speed: int = -400
 var double_jump = false
 
-
+onready var particle = self.get_node("Particles2D")
 var velocity: Vector2 = Vector2()
 
 
@@ -43,3 +43,8 @@ func _process(_delta):
 			$Sprite.flip_h = true
 	else:
 		$Animator.play("Idle")
+		
+	if is_on_floor() and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
+		particle.set_emitting(true)
+	else:
+		particle.set_emitting(false)
