@@ -5,6 +5,8 @@ Created by Stefanus Ndaru Wedhatama - 2006526812
 ### Adding Particles
 Saya hanya sekadar mengikuti tutorial yang telah diberikan, dengan menggunakan Tutorial 6 yang pernah saya gunakan, dan menambahkan efek partikel menggunakan `Particles2D` dan memainkan berbagai propertinya seperti `Lifetime`, `ProcessMaterial`, dan sebagainya.
 
+> Perlu diperhatikan bahwa Particle hanya ada di Stage 2 yang dapat diakses melalui `Stage Select > Stage 2` dari menu utama game ini
+
 
 ## Latihan Mandiri
 
