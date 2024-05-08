@@ -1,70 +1,33 @@
-# Tutorial 4 Game Development CSUI Even Semester 2023/2024
+# Tutorial 8 Game Development CSUI Even Semester 2023/2024
 Created by Stefanus Ndaru Wedhatama - 2006526812
 
 ## Excercise
-### New Features
-#### Double Jump
-Double jump di tutorial ini dilakukan di pecahan kode berikut
-```gd
-var double_jump = false
-
-func get_input():
-	if is_on_floor():
-		double_jump = true
-	if is_on_floor() and Input.is_action_just_pressed('ui_up'):
-		velocity.y = jump_speed
-	if !is_on_floor() and Input.is_action_just_pressed('ui_up') and double_jump:
-		velocity.y = jump_speed
-		double_jump = false
-```
-Implementasi double jump menggunakan mekanik dari `boolean` untuk menentukan apakah karakter _eligible_ untuk double jump. Ketika karakter menyentuh tanah, maka status double jump akan menyala. Lalu, jika tidak berada di tanah, alias ketika karakter sedang jatuh atau sedang melompat, maka karakter dapat melompat lagi, menghasilkan double jump. Implementasi ini juga kebetulan memberikan kemampuan bagi karakter untuk air jump, alias lompat di udara sebanyak satu kali.
-
-> Fungsi ini diadaptasi dan digunakan kembali dari Tutorial 3
-
-#### New Spawner
-Ada spawner dan musuh baru berupa Falling Saw, yang merupakan gergaji jatuh dan memiliki mekanisme sama seperti Falling Fish, di mana player akan kalah jika menyentuhnya.
-
-![Alt text](saw.png)
-
-Bedanya dengan Falling Fish, Falling Saw hanya akan jatuh di satu titik, yaitu di lompatan terakhir sebelum titik akhir, dengan memodifikasi kode Falling Fish sehingga hanya akan spawn di titik X tertentu dan memiliki interval lebih tinggi.
-
-```godot
-func spawn():
-	var spawned = obstacle.instance()
-	get_parent().add_child(spawned)
-
-	var spawn_pos = global_position
-	spawn_pos.x = spawn_pos.x
-
-	spawned.global_position = spawn_pos
-
-func repeat():
-	spawn()
-	yield(get_tree().create_timer(2), "timeout")
-	repeat()
-```
-Pengaturan tersebut dilakukan di Spawner untuk Saw, yaitu `SawSpawner`.
+### Adding Particles
+Saya hanya sekadar mengikuti tutorial yang telah diberikan, dengan menggunakan Tutorial 6 yang pernah saya gunakan, dan menambahkan efek partikel menggunakan `Particles2D` dan memainkan berbagai propertinya seperti `Lifetime`, `ProcessMaterial`, dan sebagainya.
 
 
-#### Lighting
-Adanya Lighting yang membuat Scene menjadi lebih hidup, dengan memanfaatkan `CanvasModulate` untuk set seberapa terang scenenya, dan `Light2D` untuk memancarkan cahaya.
+## Latihan Mandiri
+
+### Apa saja hal-hal positif yang kamu identifikasi dari pengalaman para pemain ketika mencoba game kelompok?
+Hal positif yang diidentifikasi adalah game yang kami buat memiliki konsep yang cukup menarik untuk memikat perhatian _bystander_ yang ada di plaza gedung baru. Hal ini terutama menarik pecinta _rhytm game_, karena apa yang kami berikan cukup unik dan tidak diikuti oleh kelompok lain. Selain itu, penggunaan _storyboard_ sebagai mekanisme untuk menentukan _mapping_ sangat unik dan memiliki kesan _well made_ yang sangat bagus, dan memberi pengalaman yang imersif untuk pemain yang memainkannya. Selain itu, game juga cukup menantang sehingga pemain merasa, ya, tertantang, untuk mencoba dan menyelesaikan level dengan mendapatkan combo terbaik dan mengalahkan bosnya.
 
 
-![Alt text](image.png)
-
----
-
-# Tutorial 6 Game Development CSUI Even Semester 2023/2024
-Created by Stefanus Ndaru Wedhatama - 2006526812
-
-## Excercise
-### Implementation of New Game
-Implementasi New Game dilakukan dengan menaruh tombol New Game menggunakan `ButtonLink` di scene `MainMenu.tscn`. Tombol ini dinest dalam suatu `MarginContainer` dan banyak `VBox` serta `HBox` container lainnya, lalu diberikan signal ketika ditekan akan memanggil `get_tree().change_scene(str("res://scenes/level/" + scene_to_load + ".tscn"))`. Selain itu, ketika menekan tombol, maka akan menulis ke _singleton_ nyawa dan menaruh _value_ sebanyak 3 lives melalui `global.set_lives(3)`.
+### Apa saja hal-hal negatif (atau, pain points) yang kamu identifikasi dari pengalaman para pemain ketika mencoba game kelompok?
+Yang saya perhatikan adalah, pemain perlu mempelajari sedikit mengenai _gameplay_ karena kami tidak memberikan tutorial, sehingga mereka harus dipandu bahwa mereka perlu menyerang dengan mengikuti ritme, sekaligus menghindar proyektil yang dilontarkan. Selain itu, karena kami belum mengimplementasikan berbagai tingkat kesulitan, level _default_ yang kami miliki terlalu sulit untuk mayoritas pemain dan berubah menjadi _button mashing_ game. Selain itu, _feedback_ yang diberikan oleh game, seperti indikasi bahwa berhasil hit note dengan sempurna, atau miss, bahkan terkena _damage_ dari proyektil, masih belum ada, sehingga banyak pemain cukup kebingungan dengan _sensing_ dari gamenya.
 
 
-### Implementation of Stage Select
-Stage Select mengikuti implementasi New Game dalam _layout_ dengan menggunakan `MarginContainer` dan banyak `VBox` serta `HBox` container lainnya. Di Stage Select, dalam scene `MenuScreen.tscn`, terdapat dua tombol yang akan memainkan level yang sesuai. Setiap tombol akan diberikan perintah untuk memberi 3 nyawa, sama seperti New Game, dan akan memuat scene melalui `get_tree().change_scene(str("res://scenes/level/" + scene_to_load + ".tscn"))` dengan `scene_to_load` diatur secara manual melalui Inspector di masing-masing stage.
+### Dari feedback-feedback yang telah diperoleh, apakah ada isu yang terkait pencapaian kondisi flow oleh pemain?
+Yang paling jelas adalah tingkat kesulitan yang ada masih terlalu sulit untuk mayoritas pemain sehingga mereka merasa putus asa dan menyerah untuk berusaha, sehingga tercapai kondisi _button masing_ yang disebutkan di atas. Selain itu, kurangnya _feedback_ juga mengganggu _flow_ dari pemain untuk bisa menentukan apakah pemain sudah cukup baik dalam bermain, atau ada banyak salah pergerakan.
 
+### Dari jawaban kamu terhadap pertanyaan 1 hingga 3, tuliskan secara singkat, dalam bentuk bullet points, apa saja hal yang ingin kamu polish dan balance?
+1. Menerapkan difficulty level yang lebih rendah untuk akomodir pemain yang masih pemula di rhytm game
+2. Implementasi _feedback_ mechanic untuk berbagai aspek dalam gameplay
+3. Memberikan tutorial di awal agar pemain tau apa yang harus dilakukan
 
-### Implementation of Return to Menu
-Pada tutorial 6 ini, untuk layar akhir, baik kalah atau menang, diberikan tombol untuk kembali ke menu. Hal ini dilakukan di kedua scene `WinScreen.tscn` dan juga `LoseScreen.tscn`. Implementasi sangat mudah, dengan memberi Button lalu dengan Anchor diberikan ke Center dan melakukan sedikit adjustment secara vertikal, lalu diberikan signal tekan yang akan memanggil untuk memuat scene menu utama melalui `get_tree().change_scene(str("res://scenes/screen/MainMenu.tscn"))`.
+### Untuk masing-masing poin di jawaban pertanyaan 4, jabarkan secara singkat (1 - 3 kalimat) mengenai rencana kerja kamu untuk mengimplementasikan usulan tersebut.
+1. **Menerapkan difficulty level**
+Untuk ini, cukup simpel, yaitu memberikan opsi untuk menentukan _difficulty_ di awal level, mulai dari Easy, Medium, dan Hard. Lalu, mengatur _storyboard_ di setiap level agar bisa lebih mudah atau sulit dengan memanipulasi jumlah proyektil, kecepatan proyektil, dan juga _beat_ yang harus di-_hit_ oleh pemain sebagai bentuk penyerangan
+2. **Implementasi _feedback_ mechanic**
+Implementasi _feedback_ mechanic bisa sesimpel memberikan indikator seperti adanya animasi atau perubahan warna ketika terjadi suatu interaksi, seperti _miss_ suatu note, atau ketika terkena _damage_ sehingga pemain tau bahwa pemain baru saja terkena suatu kejadian terhadap _gameplay_ yang ada. Untuk interaksi _feedback_ secara spesifik, masih menjadi diskusi pada kelompok kami.
+3. **Memberikan tutorial**
+Untuk tutorial, cukup sesimpel ketika memulai game atau _storyline_ untuk pertama kali, pemain bisa memilih untuk memulai tutorial atau tidak, dan di tutorial, _basics_ dari game akan diperkenalkan dan pemain dapat mengikutinya. Level tutorial akan menggunakan _storyboard_ yang simpel karena tujuannya memang hanya untuk memperkenalkan _gameplay mechanics_ yang ada.
